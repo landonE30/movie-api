@@ -47,9 +47,13 @@ const movies = [
 ];
 
 
+const databse_url = process.env.DATABASE_URL
+
+
+
 const seedMovies = async () => {
   try {
-    await mongoose.connect(process.env.DATABASE_URL);
+    await mongoose.connect('mongodb://127.0.0.1:27017/movie');
 
     
     await Movie.deleteMany();

@@ -9,20 +9,22 @@ export const GetAllUsers = async(query) => {
     return await UserModel.find(query)
 }
 
-export const GetUser = async(username) => {
-
-    const user =  await UserModel.findOne({username : username})
-        .populate({path : 'review' , select : ['rating']})
-        .populate({path : 'movie' , select : ['title','director']})
+export const GetUser = async (username) => {
+    const user = await UserModel.findOne({ username })
         .select('-password')
+        .populate({
+            path: 'reviews',
+            select: 'rating review movie',
+            populate: {
+                path: 'movie',
+                select: 'title director'
+            }
+        });
 
-    
-    if (!user) throw new ApiError(404 , 'user not found')
+    if (!user) throw new ApiError(404, 'user not found');
 
-    return await user
-
-}
-
+    return user;
+};
 export const MakeUser = async(email , username , password , role) => {
 
     const saltround = Number(process.env.SALT);

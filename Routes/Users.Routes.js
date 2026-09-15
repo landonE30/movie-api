@@ -6,16 +6,17 @@ import { DeleteUserSchema } from "../Schema/Users/DeleteUser.Schema.js";
 import { UpdatePassSchema } from "../Schema/Users/UpdatePass.Schema.js";
 import { LoginSchema } from "../Schema/Users/Login.Schema.js";
 import { GetUser } from "../Schema/Users/GetUser.Schema.js";
+import { Admin } from "../Middlewares/admin.js";
 
 
 const Route = e.Router()
 
 Route.get('/' ,  ShowAllUsers)
-Route.get('/show/:name', Validate(GetUser) , ShowUser)
+Route.get('/:name', Validate(GetUser) , ShowUser)
 Route.post('/create' , Validate(CreateUserSchema) , CreateUser)
 Route.post('/login' , Validate(LoginSchema) , login )
-Route.post('/update/:id', Validate(UpdatePassSchema) , UpdateUser)
-Route.delete('/delete/:id', Validate(DeleteUserSchema) , DeleteUser)
+Route.post('/update/:id', Admin , Validate(UpdatePassSchema) , UpdateUser)
+Route.delete('/delete/:id', Admin , Validate(DeleteUserSchema) , DeleteUser)
 
 
 

@@ -7,6 +7,17 @@ const User = new Schema({
     password : {type : String , trim : true , required : true},
     role : {type : String , enum : ["user" ,"admin"] , default : "user"},
     
-}, { timestamps: true });
+}, {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+});
+
+
+User.virtual('reviews', {
+    ref: 'Review',
+    localField: '_id',
+    foreignField: 'user'
+});
 
 export default mongoose.model('User' , User)

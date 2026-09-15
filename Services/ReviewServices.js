@@ -74,7 +74,7 @@ export const DeleteReviewById = async(reviewId , userid) => {
 
     if (!review) throw new ApiError(404, 'review not found')
 
-    //if (review.user != userid) throw new ApiError(401 , 'acces denied')
+    if (review.user != userid) throw new ApiError(401 , 'acces denied')
 
     console.log(review.user);
 

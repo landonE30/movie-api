@@ -13,11 +13,10 @@ app.use(express.json())
 app.get("/", (req, res) => {
   res.json({
     message: "Movie API is running",
-    version: "1.0.0",
     status: "OK",
     endpoints: {
-      movies: "/movies",
-      users: "/users",
+      movies: "/movie",
+      users: "/user",
       reviews: "/review"
     }
   });

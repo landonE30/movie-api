@@ -5,8 +5,8 @@ import { Auth } from "../Middlewares/Auth.js";
 
 const Route = e.Router()
 
-Route.get('/showall' , ShowAllReviews)
-Route.get('/show/:id' , ShowReview)
+Route.get('/' , ShowAllReviews)
+Route.get('/:id' , ShowReview)
 Route.delete('/delete/:id' , Auth , DeleteReview)
 
 

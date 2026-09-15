@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import MovieModel from "./Movie.js";
+import User from "./User.js";
 const { Schema } = mongoose;
 
 const Review = new Schema ({
@@ -7,7 +8,7 @@ const Review = new Schema ({
     movie : {type : mongoose.Schema.Types.ObjectId , ref : 'Movie' , required : true},
     rating : {type : Number },
     review : {type : String }
-})
+},  {strictPopulate : false }  )
 
 
 Review.index({ user: 1, movie: 1 }, { unique: true });
@@ -65,7 +66,7 @@ Review.post('findOneAndDelete' , async function(doc) {
 
     movie.reviewCount -= 1
 
-    movie.rating = movie.reviewCount == 0 ? 0 : ((movie.rating * (movie.reviewCount + 1)) - this.rating) / movie.reviewCount
+    movie.rating = movie.reviewCount == 0 ? 0 : ((movie.rating * (movie.reviewCount + 1)) - doc.rating) / movie.reviewCount
 
     movie.save()
 })

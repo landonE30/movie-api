@@ -2,15 +2,15 @@ import mongoose from "mongoose";
 const {Schema} = mongoose;
 
 const Movie = new Schema({
-    title : {type : String , required : true , trim : true},
-    slug : {type:String , unique : true},
-    director : {type : String , required : true},
+    title : {type : String , required : true , trim : true, index : true},
+    slug : {type:String , unique : true , index : true},
+    director : {type : String , required : true , index : true},
     overview : {type : String , required : true},
-    genres : {type : Array , required : true},
+    genres : {type : [String] , required : true , index : true},
     releaseyear : {type : Number , required : true},
     reviewCount : {type : Number , default : 0},
-    rating : {type : Number , default : 0},
-},  {strictPopulate : false }  )
+    rating : {type : Number , default : 0 , max : 5},
+},  {timestamps: true}  )
 
 
 Movie.pre('save' , async function() {

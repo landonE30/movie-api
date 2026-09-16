@@ -7,7 +7,7 @@ export const CreateReviewSchema = z.object({
     }),
 
     body : z.object({
-        rating : z.number().max(5).optional(),
+        rating : z.number().min(1).max(5).optional(),
         review : z.string().optional()
     })
 })

@@ -5,10 +5,10 @@ const { Schema } = mongoose;
 
 const Review = new Schema ({
     user : {type : mongoose.Schema.Types.ObjectId , ref : 'User' , required : true},
-    movie : {type : mongoose.Schema.Types.ObjectId , ref : 'Movie' , required : true},
-    rating : {type : Number },
+    movie : {type : mongoose.Schema.Types.ObjectId , ref : 'Movie' , required : true , index : true},
+    rating : {type : Number , min : 1, max : 5 },
     review : {type : String }
-},  {strictPopulate : false }  )
+},  {timestamps: true}  )
 
 
 Review.index({ user: 1, movie: 1 }, { unique: true });
